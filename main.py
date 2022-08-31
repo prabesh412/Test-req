@@ -19,7 +19,15 @@ def request(page, last):
 
     dictobj["title"] =res
 
-    with open('data.json', 'w', encoding='utf-8') as json_file:
-        json.dump(dictobj, json_file, ensure_ascii=False, indent=4, separators=(',', ': '))
+    try:
+        with open('data.json', 'r+', encoding='utf-8') as json_file:
+            listobj = json.load(json_file)
+            listobj["title"] = res
 
-request(1,10)
+            with open('data.json', 'w', encoding='utf-8') as json_file:
+                json.dump(listobj, json_file, ensure_ascii=False, indent=4, separators=(',', ': '))
+    except:
+        with open('data.json', 'w', encoding='utf-8') as json_file:
+            json.dump(dictobj, json_file, ensure_ascii=False, indent=4, separators=(',', ': '))
+
+request(5,9)
