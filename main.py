@@ -17,7 +17,7 @@ df = pd.json_normalize(res)
 df.to_csv('result.csv')
 
 data = read_csv("result.csv")
-slug = data['slug'].tolist()
+slug = data['title'].tolist()
 
 with open('data.json', 'w', encoding='utf-8') as f:
     json.dump({"titles":slug}, f, ensure_ascii=False, indent=4)
