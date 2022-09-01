@@ -3,9 +3,21 @@ import json
 from last_page import next_page
 
 def request(page, last):
+    if page == 1:
+        json_template = {
+        "title": [],
+        "page": 1}
+        with open('data.json', 'w', encoding='utf-8') as json_file:
+            json.dump(json_template, json_file, ensure_ascii=False, indent=4, separators=(',', ': '))
+
+    dictobj = {}
+
+    with open('data.json', 'r+', encoding='utf-8') as json_file:
+        listobj = json.load(json_file)
+        dictobj["title"] = listobj["title"]
+
     for r in range(page, last+1):
         res = []
-        dictobj = {}
         url = f"https://bg.annapurnapost.com/api/search?page={page}&title=%E0%A4%95%E0%A5%8B%E0%A4%B0%E0%A5%8B%E0%A4%A8%E0%A4%BE"
         payload={}
         headers = {}
@@ -14,17 +26,9 @@ def request(page, last):
         for i in data['data']['items']:
             res.append(i["title"])
         page += 1
-        dictobj["title"] =res
-        try:
-            with open('data.json', 'r+', encoding='utf-8') as json_file:
-                listobj = json.load(json_file)
-                listobj["title"] += res
-                dictobj["page"] = page - 1
-                dictobj["title"] = listobj["title"]
-        except:
-            print("error")
-
+        listobj["title"] += res
+        listobj["page"] = page - 1
         with open('data.json', 'w', encoding='utf-8') as json_file:
-            json.dump(dictobj, json_file, ensure_ascii=False, indent=4, separators=(',', ': '))
+            json.dump(listobj, json_file, ensure_ascii=False, indent=4, separators=(',', ': '))
 
-request(next_page,20)
+request(next_page,9)
