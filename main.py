@@ -1,17 +1,20 @@
 import requests
 import json
-from last_page import next_page
 
-def request(page, last):
-    if page == 1:
+def request(last):
+    try:
+        with open('data.json', 'r', encoding='utf-8') as json_file:
+            print(json.load(json_file))
+    except:
         json_template = {
         "title": [],
         "page": 1}
         with open('data.json', 'w', encoding='utf-8') as json_file:
             json.dump(json_template, json_file, ensure_ascii=False, indent=4, separators=(',', ': '))
 
-    with open('data.json', 'r+', encoding='utf-8') as json_file:
+    with open('data.json', 'r', encoding='utf-8') as json_file:
         listobj = json.load(json_file)
+        page = listobj['page']
 
     for r in range(page, last+1):
         res = []
@@ -28,4 +31,4 @@ def request(page, last):
         with open('data.json', 'w', encoding='utf-8') as json_file:
             json.dump(listobj, json_file, ensure_ascii=False, indent=4, separators=(',', ': '))
 
-request(next_page,10)
+request(15)
