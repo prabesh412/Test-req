@@ -10,11 +10,8 @@ def request(page, last):
         with open('data.json', 'w', encoding='utf-8') as json_file:
             json.dump(json_template, json_file, ensure_ascii=False, indent=4, separators=(',', ': '))
 
-    dictobj = {}
-
     with open('data.json', 'r+', encoding='utf-8') as json_file:
         listobj = json.load(json_file)
-        dictobj["title"] = listobj["title"]
 
     for r in range(page, last+1):
         res = []
@@ -31,4 +28,4 @@ def request(page, last):
         with open('data.json', 'w', encoding='utf-8') as json_file:
             json.dump(listobj, json_file, ensure_ascii=False, indent=4, separators=(',', ': '))
 
-request(next_page,9)
+request(next_page,10)
