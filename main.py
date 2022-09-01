@@ -13,8 +13,7 @@ def request(page, last):
         data = response.json()
         for i in data['data']['items']:
             res.append(i["title"])
-        for j in res:
-            result.append(j)
+
         page += 1
 
     dictobj["title"] =res
@@ -26,8 +25,8 @@ def request(page, last):
             dictobj["title"] = listobj["title"]
     except:
         print("error")
-        
+
     with open('data.json', 'w', encoding='utf-8') as json_file:
         json.dump(dictobj, json_file, ensure_ascii=False, indent=4, separators=(',', ': '))
 
-request(4,10)
+request(4,8)
