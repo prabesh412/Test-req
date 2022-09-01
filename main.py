@@ -23,11 +23,11 @@ def request(page, last):
         with open('data.json', 'r+', encoding='utf-8') as json_file:
             listobj = json.load(json_file)
             listobj["title"] += res
-
-            with open('data.json', 'w', encoding='utf-8') as json_file:
-                json.dump(listobj, json_file, ensure_ascii=False, indent=4, separators=(',', ': '))
+            dictobj["title"] = listobj["title"]
     except:
-        with open('data.json', 'w', encoding='utf-8') as json_file:
-            json.dump(dictobj, json_file, ensure_ascii=False, indent=4, separators=(',', ': '))
+        print("error")
+        
+    with open('data.json', 'w', encoding='utf-8') as json_file:
+        json.dump(dictobj, json_file, ensure_ascii=False, indent=4, separators=(',', ': '))
 
-request(4,9)
+request(4,10)
