@@ -1,12 +1,11 @@
 import requests
 import json
+from last_page import next_page
 
 def request(page, last):
-
     for r in range(page, last+1):
         res = []
         dictobj = {}
-        result = []
         url = f"https://bg.annapurnapost.com/api/search?page={page}&title=%E0%A4%95%E0%A5%8B%E0%A4%B0%E0%A5%8B%E0%A4%A8%E0%A4%BE"
         payload={}
         headers = {}
@@ -14,15 +13,13 @@ def request(page, last):
         data = response.json()
         for i in data['data']['items']:
             res.append(i["title"])
-
         page += 1
-
         dictobj["title"] =res
-
         try:
             with open('data.json', 'r+', encoding='utf-8') as json_file:
                 listobj = json.load(json_file)
                 listobj["title"] += res
+                dictobj["page"] = page - 1
                 dictobj["title"] = listobj["title"]
         except:
             print("error")
@@ -30,4 +27,4 @@ def request(page, last):
         with open('data.json', 'w', encoding='utf-8') as json_file:
             json.dump(dictobj, json_file, ensure_ascii=False, indent=4, separators=(',', ': '))
 
-request(1,20)
+request(next_page,20)
