@@ -22,7 +22,7 @@ def request(page, last):
     try:
         with open('data.json', 'r+', encoding='utf-8') as json_file:
             listobj = json.load(json_file)
-            listobj["title"] = res
+            listobj["title"] += res
 
             with open('data.json', 'w', encoding='utf-8') as json_file:
                 json.dump(listobj, json_file, ensure_ascii=False, indent=4, separators=(',', ': '))
@@ -30,4 +30,4 @@ def request(page, last):
         with open('data.json', 'w', encoding='utf-8') as json_file:
             json.dump(dictobj, json_file, ensure_ascii=False, indent=4, separators=(',', ': '))
 
-request(5,9)
+request(4,9)
